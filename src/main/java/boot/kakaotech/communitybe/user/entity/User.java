@@ -1,10 +1,16 @@
 package boot.kakaotech.communitybe.user.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "user")
 public class User {
 
