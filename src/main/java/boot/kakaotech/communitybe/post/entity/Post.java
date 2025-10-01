@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -37,5 +38,8 @@ public class Post {
 
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime deletedAt;
+
+    @OneToMany
+    private List<PostLike> likes;
 
 }
