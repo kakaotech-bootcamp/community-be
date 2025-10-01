@@ -1,5 +1,6 @@
 package boot.kakaotech.communitybe.post.entity;
 
+import boot.kakaotech.communitybe.comment.entity.Comment;
 import boot.kakaotech.communitybe.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,5 +45,8 @@ public class Post {
 
     @OneToMany(mappedBy = "post_image")
     private List<PostImage> images;
+
+    @OneToMany(mappedBy = "comment")
+    private List<Comment> comments;
 
 }
