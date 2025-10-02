@@ -1,5 +1,6 @@
 package boot.kakaotech.communitybe.config;
 
+import boot.kakaotech.communitybe.auth.filter.JwtVerificationFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -35,7 +37,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtVerificationFilter jwtVerificationFilter) throws Exception {
         log.info("[SecurityConfig] 보안 필터 구성 시작");
         http
                 .csrf(csrf -> csrf.disable())
@@ -47,6 +49,7 @@ public class SecurityConfig {
                                     .anyRequest().authenticated();
                     log.info("[SecurityConfig] URL 인가 구성 완료");
                 })
+                .addFilterBefore(jwtVerificationFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> {
                     form
                             .loginProcessingUrl("/api/auth/signin")
