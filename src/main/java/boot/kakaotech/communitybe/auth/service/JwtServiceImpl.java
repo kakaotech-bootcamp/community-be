@@ -100,6 +100,11 @@ public class JwtServiceImpl implements JwtService {
         return extractEmailFromToken(token);
     }
 
+    @Override
+    public long getRefreshTokenExpireTime() {
+        return refreshTokenExpireTime;
+    }
+
     /**
      * 토큰에 subject로 담긴 이메일을 추출하는 메서드
      *

@@ -15,4 +15,6 @@ public interface JwtService {
 
     String getEmailFromToken(String token);
 
+    long getRefreshTokenExpireTime();
+
 }

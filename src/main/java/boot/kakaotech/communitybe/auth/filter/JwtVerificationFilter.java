@@ -75,6 +75,12 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         return excludedUrls.stream().anyMatch(p -> p.matches(container));
     }
 
+    /**
+     * SecurityContextHolder에 저장된 인증 정보가 없다면 새로 저장하는 메서드
+     *
+     * @param accessToken
+     * @param response
+     */
     private void processAccessToken(String accessToken, HttpServletResponse response) {
         String email = jwtService.getEmailFromToken(accessToken);
 
