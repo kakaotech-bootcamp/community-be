@@ -22,10 +22,10 @@ public class JwtServiceImpl implements JwtService {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${jwt.expireTime.accessToken}")
+    @Value("${jwt.expire_time.access_token}")
     private long accessTokenExpireTime;
 
-    @Value("${jwt.expireTime.refreshToken}")
+    @Value("${jwt.expire_time.refresh_token}")
     private long refreshTokenExpireTime;
 
     /**
