@@ -13,4 +13,6 @@ public interface JwtService {
 
     String generateRefreshToken(User user);
 
+    String getEmailFromToken(String token);
+
 }

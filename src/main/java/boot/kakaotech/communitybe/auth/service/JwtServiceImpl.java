@@ -45,10 +45,6 @@ public class JwtServiceImpl implements JwtService {
             // TODO: 커스텀 예외 던지기
         }
 
-        if (!isExpiredToken(accessToken)) {
-            // TODO: 커스텀 예외 던지기
-        }
-
         return true;
     }
 
@@ -67,10 +63,6 @@ public class JwtServiceImpl implements JwtService {
     public boolean isValidRefreshToken(String refreshToken, UserDetails user) {
         String email = extractEmailFromToken(refreshToken);
         if (!email.equals(user.getUsername())) {
-            // TODO: 커스텀 예외 던지기
-        }
-
-        if (!isExpiredToken(refreshToken)) {
             // TODO: 커스텀 예외 던지기
         }
 
@@ -101,6 +93,11 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateRefreshToken(User user) {
         return generateToken(user, refreshTokenExpireTime);
+    }
+
+    @Override
+    public String getEmailFromToken(String token) {
+        return extractEmailFromToken(token);
     }
 
     /**
