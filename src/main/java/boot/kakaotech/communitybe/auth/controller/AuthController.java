@@ -16,7 +16,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMapping("/signup")
+    @PostMapping("/signup")
     public ResponseEntity<Void> signup(
             @RequestPart("data") SignupDto signupDto,
             @RequestPart(value = "image", required = false) MultipartFile file) {
