@@ -1,6 +1,7 @@
 package boot.kakaotech.communitybe.auth;
 
 import boot.kakaotech.communitybe.auth.dto.SignupDto;
+import boot.kakaotech.communitybe.auth.dto.ValueDto;
 import boot.kakaotech.communitybe.auth.service.AuthService;
 import boot.kakaotech.communitybe.user.entity.User;
 import boot.kakaotech.communitybe.user.repository.UserRepository;
@@ -33,6 +34,34 @@ public class AuthTest {
 
         User saved = userRepository.findByEmail(signupDto.getEmail())
                 .orElseThrow(() -> new AssertionError("유저가 저장되지 않았습니다."));
+    }
+
+    @Test
+    @DisplayName("이메일 중복체크: 존재 테스트")
+    public void duplicateExistedEmailTest(){
+        ValueDto valueDto = ValueDto.builder()
+                .value("test@test.com")
+                .build();
+
+        boolean isExist = authService.checkEmail(valueDto);
+
+        if (!isExist) {
+            throw new AssertionError("해당 유저는 존재하지 않습니다.");
+        }
+    }
+
+    @Test
+    @DisplayName("이메일 중복체크: 미존재 테스트")
+    public void duplicateNonExistedEmailTest(){
+        ValueDto valueDto = ValueDto.builder()
+                .value("nouser@test.com")
+                .build();
+
+        boolean isExist = authService.checkEmail(valueDto);
+
+        if (isExist) {
+            throw new AssertionError("해당 유저는 존재하지 않습니다.");
+        }
     }
 
 }

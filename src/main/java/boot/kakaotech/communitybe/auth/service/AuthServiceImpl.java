@@ -1,6 +1,7 @@
 package boot.kakaotech.communitybe.auth.service;
 
 import boot.kakaotech.communitybe.auth.dto.SignupDto;
+import boot.kakaotech.communitybe.auth.dto.ValueDto;
 import boot.kakaotech.communitybe.common.s3.service.S3Service;
 import boot.kakaotech.communitybe.user.entity.User;
 import boot.kakaotech.communitybe.user.repository.UserRepository;
@@ -39,6 +40,17 @@ public class AuthServiceImpl implements AuthService {
         log.info("[AuthService] 회원가입 성공");
     }
 
+    @Override
+    public boolean checkEmail(ValueDto value) {
+        log.info("[AuthService] 이메일 중복확인 시작");
+
+        String email = value.getValue();
+        validateEmail(email);
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        return user != null;
+    }
+
     /**
      * signup 요청 시 받은 데이터 검증 메서드
      * 1. 이메일 형식 체크
@@ -48,22 +60,36 @@ public class AuthServiceImpl implements AuthService {
      * @param signupDto
      */
     private void validateSignup(SignupDto signupDto) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=`~\\[\\]{};':\",./<>?]).+$";
-        String nicknameRegex = ".*\\s.*";
-
         String email = signupDto.getEmail();
-        if (email.matches(emailRegex)) {
-            // TODO: 커스텀 에러 던지기
-        }
+        validateEmail(email);
 
         String password = signupDto.getPassword();
-        if (password.length() < 8 || password.length() > 20 || password.matches(passwordRegex)) {
-            // TODO: 커스텀 에러 던지기
-        }
+        validatePassword(password);
 
         String nickname = signupDto.getNickname();
-        if (nickname.isEmpty() || nickname.length() > 10 || nickname.matches(nicknameRegex)) {
+        validateNickname(nickname);
+    }
+
+    private void validateEmail(String email) {
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        if (!email.matches(regex)) {
+            // TODO: 커스텀 에러 던지기
+        }
+    }
+
+    private void validatePassword(String password) {
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=`~\\[\\]{};':\",./<>?]).+$";
+
+        if (password.length() < 8 || password.length() > 20 || password.matches(regex)) {
+            // TODO: 커스텀 에러 던지기
+        }
+    }
+
+    private void validateNickname(String nickname) {
+        String regex = ".*\\s.*";
+
+        if (nickname.isEmpty() || nickname.length() > 10 || nickname.matches(regex)) {
             // TODO: 커스텀 에러 던지기
         }
     }
