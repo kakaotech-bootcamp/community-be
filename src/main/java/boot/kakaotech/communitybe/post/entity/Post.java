@@ -40,13 +40,13 @@ public class Post {
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime deletedAt;
 
-    @OneToMany(mappedBy = "post_like")
+    @OneToMany(mappedBy = "post")
     private List<PostLike> likes;
 
-    @OneToMany(mappedBy = "post_image")
+    @OneToMany(mappedBy = "post")
     private List<PostImage> images;
 
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
 }
