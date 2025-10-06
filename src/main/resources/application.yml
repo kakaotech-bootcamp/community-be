@@ -16,3 +16,12 @@ spring:
 logging:
   level:
     org.hibernate.sql: debug
+
+jwt:
+  secret: ${JWT_SECRET}
+  expire_time:
+    access_token: ${ACCESS_TOKEN_EXPIRE_TIME}
+    refresh_token: ${REFRESH_TOKEN_EXPIRE_TIME}
+
+frontend:
+  url: ${FRONTEND_URL}
