@@ -44,4 +44,18 @@ public class AuthController {
                 ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/duplications/nickname")
+    public ResponseEntity<Void> duplicateNickname(
+            @RequestBody ValueDto nickname
+    ) {
+        log.info("[AuthController] 닉네임 중복확인 시작");
+
+        boolean isExist = authService.checkNickname(nickname);
+        log.info("[AuthController] 닉네임 중복확인 성공");
+
+        return isExist ?
+                ResponseEntity.status(HttpStatus.CONFLICT).build() :
+                ResponseEntity.noContent().build();
+    }
+
 }

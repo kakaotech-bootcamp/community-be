@@ -46,7 +46,7 @@ public class AuthTest {
         boolean isExist = authService.checkEmail(valueDto);
 
         if (!isExist) {
-            throw new AssertionError("해당 유저는 존재하지 않습니다.");
+            throw new AssertionError("해당 이메일을 사용하는 유저가 존재하지 않습니다.");
         }
     }
 
@@ -60,7 +60,35 @@ public class AuthTest {
         boolean isExist = authService.checkEmail(valueDto);
 
         if (isExist) {
-            throw new AssertionError("해당 유저는 존재하지 않습니다.");
+            throw new AssertionError("해당 이메일을 사용하는 유저가 존재합니다.");
+        }
+    }
+
+    @Test
+    @DisplayName("닉네임 중복체크: 존재 테스트")
+    public void duplicateExistedNicknameTest(){
+        ValueDto valueDto = ValueDto.builder()
+                .value("test")
+                .build();
+
+        boolean isExist = authService.checkNickname(valueDto);
+
+        if (!isExist) {
+            throw new AssertionError("해당 닉네임을 사용하는 유저가 존재하지 않습니다.");
+        }
+    }
+
+    @Test
+    @DisplayName("닉네임 중복체크: 미존재 테스트")
+    public void duplicateNonExistedNicknameTest(){
+        ValueDto valueDto = ValueDto.builder()
+                .value("test123123")
+                .build();
+
+        boolean isExist = authService.checkNickname(valueDto);
+
+        if (isExist) {
+            throw new AssertionError("해당 닉네임을 사용하는 유저가 존재합니다.");
         }
     }
 

@@ -51,6 +51,17 @@ public class AuthServiceImpl implements AuthService {
         return user != null;
     }
 
+    @Override
+    public boolean checkNickname(ValueDto value) {
+        log.info("[AuthService] 닉네임 중복확인 시작");
+
+        String nickname = value.getValue();
+        validateNickname(nickname);
+        User user = userRepository.findByNickname(nickname).orElse(null);
+
+        return user != null;
+    }
+
     /**
      * signup 요청 시 받은 데이터 검증 메서드
      * 1. 이메일 형식 체크

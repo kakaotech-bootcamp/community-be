@@ -10,4 +10,6 @@ public interface AuthService {
 
     boolean checkEmail(ValueDto valueDto);
 
+    boolean checkNickname(ValueDto valueDto);
+
 }
