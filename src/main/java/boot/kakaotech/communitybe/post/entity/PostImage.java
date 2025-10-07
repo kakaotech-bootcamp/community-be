@@ -23,6 +23,6 @@ public class PostImage {
     private Post post;
 
     @Column(nullable = false)
-    private String url;
+    private String imageKey;
 
 }

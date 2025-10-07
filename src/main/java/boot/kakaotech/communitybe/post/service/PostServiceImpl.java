@@ -1,15 +1,20 @@
 package boot.kakaotech.communitybe.post.service;
 
 import boot.kakaotech.communitybe.common.scroll.dto.CursorPage;
+import boot.kakaotech.communitybe.post.dto.CreatePostDto;
 import boot.kakaotech.communitybe.post.dto.PostDetailWrapper;
 import boot.kakaotech.communitybe.post.dto.PostListWrapper;
+import boot.kakaotech.communitybe.post.entity.Post;
+import boot.kakaotech.communitybe.post.entity.PostImage;
 import boot.kakaotech.communitybe.post.repository.PostRepository;
+import boot.kakaotech.communitybe.user.entity.User;
 import boot.kakaotech.communitybe.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -57,7 +62,29 @@ public class PostServiceImpl implements PostService {
             // TODO: 커스텀 에러 던지기
         }
 
+        // TODO: 레디스에서 viewCount 증가로직 추가
+
         return post;
+    }
+
+    @Override
+    public Integer savePost(CreatePostDto createPostDto, List<String> images) {
+        log.info("[PostService] 게시글 생성 시작");
+
+        User author = userUtil.getCurrentUser();
+
+        Post post = Post.builder()
+                .author(author)
+                .title(createPostDto.getTitle())
+                .content(createPostDto.getContent())
+                .viewCount(0)
+                .build();
+
+        List<PostImage> imagesList = null;
+        // TODO: presigned url 발급받는 로직 추가
+
+        postRepository.save(post);
+        return post.getId();
     }
 
 }

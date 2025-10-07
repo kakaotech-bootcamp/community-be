@@ -1,6 +1,7 @@
 package boot.kakaotech.communitybe.post.controller;
 
 import boot.kakaotech.communitybe.common.scroll.dto.CursorPage;
+import boot.kakaotech.communitybe.post.dto.CreatePostDto;
 import boot.kakaotech.communitybe.post.dto.PostDetailWrapper;
 import boot.kakaotech.communitybe.post.dto.PostListWrapper;
 import boot.kakaotech.communitybe.post.service.PostService;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -33,7 +36,18 @@ public class PostController {
 
         PostDetailWrapper post = postService.getPost(postId);
         log.info("[PostController] 게시글 상세조회 성공");
+
         return ResponseEntity.ok(post);
+    }
+
+    @PostMapping
+    public ResponseEntity<Integer> savePost(@RequestBody CreatePostDto createPostDto, @RequestBody List<String> images) {
+        log.info("[PostController] 게시글 생성 시작");
+
+        Integer postId = postService.savePost(createPostDto, images);
+        log.info("[PostController] 게시글 생성 성공");
+
+        return ResponseEntity.ok(postId);
     }
 
 }
