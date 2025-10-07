@@ -1,4 +1,4 @@
-package boot.kakaotech.communitybe.config;
+package boot.kakaotech.communitybe.common.config;
 
 import boot.kakaotech.communitybe.auth.filter.JwtVerificationFilter;
 import boot.kakaotech.communitybe.auth.handler.CustomLogoutHandler;

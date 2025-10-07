@@ -1,4 +1,4 @@
-package boot.kakaotech.communitybe.config;
+package boot.kakaotech.communitybe.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
