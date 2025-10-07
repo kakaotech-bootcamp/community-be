@@ -1,6 +1,7 @@
 package boot.kakaotech.communitybe.post.service;
 
 import boot.kakaotech.communitybe.common.scroll.dto.CursorPage;
+import boot.kakaotech.communitybe.post.dto.PostDetailWrapper;
 import boot.kakaotech.communitybe.post.dto.PostListWrapper;
 import boot.kakaotech.communitybe.post.repository.PostRepository;
 import boot.kakaotech.communitybe.util.UserUtil;
@@ -44,6 +45,19 @@ public class PostServiceImpl implements PostService {
                 .hasNextCursor(hasNextCursor)
                 .nextCursor(nextCursor)
                 .build();
+    }
+
+    @Override
+    public PostDetailWrapper getPost(int postId) {
+        log.info("[PostService] 게시글 상세조회 시작");
+
+        PostDetailWrapper post = postRepository.getPostById(postId);
+
+        if (post == null) {
+            // TODO: 커스텀 에러 던지기
+        }
+
+        return post;
     }
 
 }
