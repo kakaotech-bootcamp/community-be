@@ -64,4 +64,14 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
+    @PatchMapping("/{postId}/status")
+    public ResponseEntity<Void> updatePostStatus(@PathVariable("postId") Integer postId) {
+        log.info("[PostController] 게시글 삭제 시작");
+
+        postService.softDeletePost(postId);
+        log.info("[PostController] 게시글 삭제 성공");
+
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -17,4 +17,6 @@ public interface PostService {
 
     void updatePost(CreatePostDto createPostDto, List<String> images);
 
+    void softDeletePost(int postId);
+
 }

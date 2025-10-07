@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -114,6 +115,19 @@ public class PostServiceImpl implements PostService {
             // TODO: 이미지 변경 확인 후 postImage 전체 수정하기
         }
 
+        postRepository.save(post);
+    }
+
+    @Override
+    public void softDeletePost(int postId) {
+        log.info("[PostService] 게시글 삭제 시작");
+
+        Post post = postRepository.findById(postId).orElse(null);
+        if (post == null) {
+            // TODO: 커스텀 에러 던지기
+        }
+
+        post.setDeletedAt(LocalDateTime.now());
         postRepository.save(post);
     }
 
