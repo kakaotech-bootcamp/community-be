@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -68,6 +69,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional
     public Integer savePost(CreatePostDto createPostDto, List<String> images) {
         log.info("[PostService] 게시글 생성 시작");
 
@@ -85,6 +87,34 @@ public class PostServiceImpl implements PostService {
 
         postRepository.save(post);
         return post.getId();
+    }
+
+    @Override
+    @Transactional
+    public void updatePost(CreatePostDto createPostDto, List<String> images) {
+        log.info("[PostService] 게시글 수정 시작");
+
+        Post post = postRepository.findById(createPostDto.getId()).orElse(null);
+        if (post == null) {
+            // TODO: 커스텀 에러 던지기
+        }
+
+        String title = createPostDto.getTitle();
+        String content = createPostDto.getContent();
+
+        if (title != null) {
+            post.setTitle(title);
+        }
+
+        if (content != null) {
+            post.setContent(content);
+        }
+
+        if (images != null) {
+            // TODO: 이미지 변경 확인 후 postImage 전체 수정하기
+        }
+
+        postRepository.save(post);
     }
 
 }

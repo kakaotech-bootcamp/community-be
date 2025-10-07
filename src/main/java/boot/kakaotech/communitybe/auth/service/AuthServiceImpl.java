@@ -35,8 +35,7 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
-        // TODO: s3Service의 uploadUserProfile을 비동기처리 후 update 쿼리
-        String profileImageUrl = s3Service.uploadUserProfile(user, file);
+        // TODO: presigned url 발급 처리
         log.info("[AuthService] 회원가입 성공");
     }
 

@@ -15,4 +15,6 @@ public interface PostService {
 
     Integer savePost(CreatePostDto createPostDto, List<String> images);
 
+    void updatePost(CreatePostDto createPostDto, List<String> images);
+
 }

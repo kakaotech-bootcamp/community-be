@@ -7,6 +7,7 @@ import boot.kakaotech.communitybe.post.dto.PostListWrapper;
 import boot.kakaotech.communitybe.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +48,20 @@ public class PostController {
         Integer postId = postService.savePost(createPostDto, images);
         log.info("[PostController] 게시글 생성 성공");
 
-        return ResponseEntity.ok(postId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(postId);
+    }
+
+    @PatchMapping("/{postId}")
+    public ResponseEntity<Void> updatePost(
+            @PathVariable("postId") Integer postId,
+            @RequestBody CreatePostDto createPostDto,
+            @RequestBody List<String> images) {
+        log.info("[PostController] 게시글 수정 시작");
+
+        postService.updatePost(createPostDto, images);
+        log.info("[PostController] 게시글 수정 성공");
+
+        return ResponseEntity.ok().build();
     }
 
 }

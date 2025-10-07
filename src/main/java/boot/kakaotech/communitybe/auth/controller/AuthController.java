@@ -27,7 +27,7 @@ public class AuthController {
         authService.signup(signupDto, file);
         log.info("[AuthController] 회원가입 성공");
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/duplications/email")

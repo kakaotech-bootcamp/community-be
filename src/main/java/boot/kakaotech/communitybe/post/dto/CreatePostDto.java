@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreatePostDto {
 
+    private Integer id;
+
     private String title;
 
     private String content;
