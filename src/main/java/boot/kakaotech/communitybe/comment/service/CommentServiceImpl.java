@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -84,6 +85,19 @@ public class CommentServiceImpl implements CommentService {
         }
 
         comment.setContent(value.getValue());
+    }
+
+    @Override
+    @Transactional
+    public void softDeleteComment(Integer commentId) {
+        log.info("[CommentService] 댓글 삭제 시작");
+
+        Comment comment = commentRepository.findById(commentId).orElse(null);
+        if (comment == null) {
+            // TODO: 커스텀 에러 던지기
+        }
+
+        comment.setDeletedAt(LocalDateTime.now());
     }
 
 }

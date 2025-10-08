@@ -58,4 +58,17 @@ public class CommentController {
         return ResponseEntity.ok().build();
     }
 
+    @PatchMapping("/post/{postId}/comments/{commentId}/status")
+    public ResponseEntity<Void> updateCommentStatus(
+            @PathVariable("postId") Integer postId,
+            @PathVariable("commentId") Integer commentId
+    ) {
+        log.info("[CommentController] 댓글 삭제 시작 -  postId: {}, commentId: {}", postId, commentId);
+
+        commentService.softDeleteComment(commentId);
+        log.info("[CommentController] 댓글 삭제 성공");
+
+        return ResponseEntity.ok().build();
+    }
+
 }

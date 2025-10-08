@@ -13,4 +13,6 @@ public interface CommentService {
 
     void updateComment(Integer commentId, ValueDto value);
 
+    void softDeleteComment(Integer commentId);
+
 }
