@@ -1,13 +1,11 @@
 package boot.kakaotech.communitybe.post.repository;
 
-import boot.kakaotech.communitybe.comment.dto.CommentDto;
 import boot.kakaotech.communitybe.post.dto.PostDetailDto;
 import boot.kakaotech.communitybe.post.dto.PostDetailWrapper;
 import boot.kakaotech.communitybe.post.dto.PostListDto;
 import boot.kakaotech.communitybe.post.dto.PostListWrapper;
 import boot.kakaotech.communitybe.user.dto.SimpUserInfo;
 import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

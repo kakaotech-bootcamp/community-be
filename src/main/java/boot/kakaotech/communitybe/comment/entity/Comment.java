@@ -3,16 +3,14 @@ package boot.kakaotech.communitybe.comment.entity;
 import boot.kakaotech.communitybe.post.entity.Post;
 import boot.kakaotech.communitybe.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
