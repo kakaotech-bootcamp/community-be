@@ -1,5 +1,6 @@
 package boot.kakaotech.communitybe.comment.service;
 
+import boot.kakaotech.communitybe.auth.dto.ValueDto;
 import boot.kakaotech.communitybe.comment.dto.CommentDto;
 import boot.kakaotech.communitybe.comment.dto.CreateCommentDto;
 import boot.kakaotech.communitybe.comment.entity.Comment;
@@ -70,6 +71,19 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
 
         return comment.getId();
+    }
+
+    @Override
+    @Transactional
+    public void updateComment(Integer commentId, ValueDto value) {
+        log.info("[CommentService] 댓글 수정 시작");
+
+        Comment comment = commentRepository.findById(commentId).orElse(null);
+        if (comment == null) {
+            // TODO: 커스텀 에러 던지기
+        }
+
+        comment.setContent(value.getValue());
     }
 
 }
